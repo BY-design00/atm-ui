@@ -1,0 +1,63 @@
+body {
+    margin: 0px;
+    height: 100vh;
+}
+.welcomeHead {
+    text-align: center;
+    font-size: 700%;
+    margin:200px;
+    font-family: "calibri";
+    font-weight: bold;
+}
+.atmCard_container {
+    text-align: center;
+}
+#atmCard {
+    padding: 10px 30px;
+    font-size: 130%;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 50px;
+}
+.PinHeading {
+    text-align: center;
+    font-family: "calibri";
+    font-size: 400%;
+    margin: 150px;
+    font-weight: bold;
+}
+.PinContainer{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.PinContainer input {
+    font-size: 300%;
+    padding: 30px;
+    text-align: center;
+}
+#LoginBtn {
+    padding: 10px 30px;
+    font-size: 130%;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 50px;
+}
+.featureCont {
+    display: flex;
+    flex-direction: column;
+}
+.features {
+    display: flex;
+    flex-direction: row;
+}
+.features div {
+    display: flex;
+    flex-direction: column;
+}
