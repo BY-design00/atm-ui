@@ -10,12 +10,12 @@ const withdrawPgBtn = document.getElementById("withdrawPgBtn")
 const withdrawBtn = document.getElementById("withdrawBtn")
 const WithdrawAmt = document.getElementById("WithdrawAmt")
 const newBalNotif = document.getElementById("newBalNotif")
+const BankSlt = document.getElementById("BankSlt")
 
-const users = [
+const users =  [
     {pin: 2000, name: "Aderanti Peter", balance: 20000},
     {pin: 1234, name: "Babaranti Yusuf", balance: 15000}
 ]
-
 
 if (usersContain) {
     users.forEach((user) => {
@@ -89,9 +89,6 @@ if (Name) {
 }
 
 if (backBtn) {
-    const selectedUser = JSON.parse(
-        localStorage.getItem("selectedUser")
-    )
 
     backBtn.addEventListener("click", () => {
         window.location.href = 'welcome.html'
@@ -136,9 +133,30 @@ if(withdrawBtn && WithdrawAmt) {
         } else {
             const newBalance = selectedUser.balance - WithdrawAmt.value
             newBalNotif.innerText = `Your new Balance is ${newBalance.toLocaleString('en-NG', {style: "currency", currency:"NGN"})}`
-            alert("Transaction successful")
+            alert("Withdrawal successful")
+
+            selectedUser.balance = newBalance
+
+            localStorage.setItem("selectedUser", JSON.stringify(selectedUser))
         }
 
     })
 
+}
+
+const beneficiaries = [
+    {name: "Adekunle Qoyum Kazeem", id:1, bank: "UBA", acctNum: 1234567890},
+    {name: "Testimony Adekunle Michael", id:2, bank: "Palmpay", acctNum: 2345678901},
+    {name: "Ololade David Johnson", id:3, bank: "Sterling", acctNum: 3456789012}
+]
+
+if (BankSlt) {
+    beneficiaries.forEach((recieve) => {
+        const option = document.createElement("option")
+
+        option.value = recieve.id
+        option.innerText = recieve.bank
+
+        BankSlt.appendChild(option)
+    })
 }
