@@ -2,10 +2,37 @@ body {
     margin: 0px;
     height: 100vh;
 }
+.landingpage {
+    justify-content: center;
+}
+.landingcontain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+#usersContain {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    border-radius: 20px;
+    width: fit-content;
+    padding: 30px 50px;
+    background-color: white;
+    border-width: 1px;
+    border-color: grey;
+    border-style: solid;
+}
+
+#usersContain button:hover {
+    background-color: rgb(236, 236, 236);
+}
 .welcomeHead {
     text-align: center;
-    font-size: 700%;
-    margin:200px;
+    font-size: 300%;
+    margin:50px;
     font-family: "calibri";
     font-weight: bold;
 }
@@ -60,4 +87,47 @@ body {
 .features div {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    gap: 20px;
+}
+.features div button {
+    width: 200px;
+    height: 100px;
+}
+#WelcomeName {
+    font-family: 'calibri';
+    margin: 20px;
+}
+.ExitCont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+.ExitCont button {
+    width: 200px;
+    height: 100px;
+}
+.BalPage{
+    text-align: center;
+    height: 100vh;
+    align-content: center;
+    font-family: "calibri";
+}
+
+.BalPage h3 {
+    font-size: 150%;
+}
+#balance {
+    font-size: 400%;
+}
+#backBtn {
+    width: 200px;
+    height: 100px;
 }
