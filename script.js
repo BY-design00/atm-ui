@@ -11,6 +11,11 @@ const withdrawBtn = document.getElementById("withdrawBtn")
 const WithdrawAmt = document.getElementById("WithdrawAmt")
 const newBalNotif = document.getElementById("newBalNotif")
 const BankSlt = document.getElementById("BankSlt")
+const confirmName = document.getElementById("confirmName")
+const transferAmt = document.getElementById("transferAmt")
+const confirmInfo = document.getElementById("confirmInfo")
+const insertAcctNum = document.getElementById("insertAcctNum")
+const SendMoney = document.getElementById("SendMoney")
 
 const users =  [
     {pin: 2000, name: "Aderanti Peter", balance: 20000},
@@ -145,18 +150,28 @@ if(withdrawBtn && WithdrawAmt) {
 }
 
 const beneficiaries = [
-    {name: "Adekunle Qoyum Kazeem", id:1, bank: "UBA", acctNum: 1234567890},
-    {name: "Testimony Adekunle Michael", id:2, bank: "Palmpay", acctNum: 2345678901},
-    {name: "Ololade David Johnson", id:3, bank: "Sterling", acctNum: 3456789012}
+    {name: "Adekunle Qoyum Kazeem", bank: "UBA", acctNum: "1234567890"},
+    {name: "Testimony Adekunle Michael", bank: "Palmpay", acctNum: "2345678901"},
+    {name: "Ololade David Johnson", bank: "Sterling", acctNum: "3456789012"}
 ]
 
-if (BankSlt) {
+if (BankSlt && confirmName && confirmInfo && insertAcctNum) {
     beneficiaries.forEach((recieve) => {
         const option = document.createElement("option")
 
-        option.value = recieve.id
+        option.value = recieve.bank
         option.innerText = recieve.bank
 
-        BankSlt.appendChild(option)
+        BankSlt.append(option)
     })
+
+    confirmInfo.addEventListener("click", () => {
+        const receiver = beneficiaries.find((person) => {
+            return person.bank === BankSlt.value
+        })
+
+        if(receiver && receiver.acctNum === insertAcctNum.value){
+            confirmName.innerText = receiver.name
+        } else {confirmName.innerText = "Information Mismatch"}
+    } )
 }
