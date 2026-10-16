@@ -21,6 +21,7 @@ const ProviderSlt = document.getElementById("ProviderSlt")
 const confirmMeter = document.getElementById("confirmMeter")
 const confirmMeterUser = document.getElementById("confirmMeterUser")
 const exit = document.getElementById("exit")
+const ElectricBtn = document.getElementById("ElectricBtn")
 
 const users =  [
     {pin: 2000, name: "Aderanti Peter", balance: 20000, bank: "GTBank"},
@@ -236,5 +237,10 @@ if (ProviderSlt && confirmMeter) {
 if (exit) {
     exit.addEventListener("click", () => {
         window.location.href = "index.html"
+    })
+}
+if (ElectricBtn){
+    ElectricBtn.addEventListener("click", () => {
+        window.location.href = "electricitybill.html"
     })
 }
