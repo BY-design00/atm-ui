@@ -16,10 +16,17 @@ const transferAmt = document.getElementById("transferAmt")
 const confirmInfo = document.getElementById("confirmInfo")
 const insertAcctNum = document.getElementById("insertAcctNum")
 const SendMoney = document.getElementById("SendMoney")
+const tranferPgBtn = document.getElementById("tranferPgBtn")
+const ProviderSlt = document.getElementById("ProviderSlt")
+const confirmMeter = document.getElementById("confirmMeter")
+const confirmMeterUser = document.getElementById("confirmMeterUser")
+const exit = document.getElementById("exit")
 
 const users =  [
-    {pin: 2000, name: "Aderanti Peter", balance: 20000},
-    {pin: 1234, name: "Babaranti Yusuf", balance: 15000}
+    {pin: 2000, name: "Aderanti Peter", balance: 20000, bank: "GTBank"},
+    {pin: 1234, name: "Babaranti Yusuf", balance: 15000},
+    {pin: 2345, name: "Clinton Clinton", balance: 30000},
+    {pin: 2333, name: "Owoade Adams", balance: 45000}
 ]
 
 if (usersContain) {
@@ -174,4 +181,60 @@ if (BankSlt && confirmName && confirmInfo && insertAcctNum) {
             confirmName.innerText = receiver.name
         } else {confirmName.innerText = "Information Mismatch"}
     } )
+}
+
+if (SendMoney && transferAmt){
+
+    const selectedUser = JSON.parse(
+        localStorage.getItem("selectedUser")
+    )
+
+    SendMoney.addEventListener("click", () => {
+        if (transferAmt.value > selectedUser.balance) {
+            alert("Insufficient Balance")
+        } else if (transferAmt.value === "" || transferAmt.value <= 0) {
+            alert("invalid amount")
+        } else {
+            alert("Transfer successful")
+            const newBalance = selectedUser.balance - transferAmt.value
+            selectedUser.balance = newBalance
+            localStorage.setItem("selectedUser", JSON.stringify(selectedUser))
+        }
+
+        
+
+    })
+}
+if (tranferPgBtn) {
+    tranferPgBtn.addEventListener ("click", () => {
+        window.location.href = "transfer.html"
+    })
+}
+
+const MeterUsers = [
+    {num: "12345678910", provider: "IBEDC", name: "Adebimpe Rukayat Kafayat"},
+    {num: "23456789012", provider: "PHCN", name: "Adekunle Wasiu Joel"}
+]
+
+if (ProviderSlt && confirmMeter) {
+
+    MeterUsers.forEach((users) => {
+
+        const option = document.createElement("option")
+
+        option.value = users.provider
+        option.innerText = users.provider
+
+        ProviderSlt.append(option)
+    })
+
+    confirmMeter.addEventListener("click", () => {
+        
+    })
+}
+
+if (exit) {
+    exit.addEventListener("click", () => {
+        window.location.href = "index.html"
+    })
 }
