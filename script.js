@@ -22,13 +22,27 @@ const confirmMeter = document.getElementById("confirmMeter")
 const confirmMeterUser = document.getElementById("confirmMeterUser")
 const exit = document.getElementById("exit")
 const ElectricBtn = document.getElementById("ElectricBtn")
+const insertMeterNum = document.getElementById("insertMeterNum")
+const buyElectricity = document.getElementById("buyEletricity")
+const ElectricAmt = document.getElementById("ElectricAmt")
 
-const users =  [
-    {pin: 2000, name: "Aderanti Peter", balance: 20000, bank: "GTBank"},
-    {pin: 1234, name: "Babaranti Yusuf", balance: 15000},
-    {pin: 2345, name: "Clinton Clinton", balance: 30000},
-    {pin: 2333, name: "Owoade Adams", balance: 45000}
+const bankusers =  [
+    {pin: 2000, name: "Aderanti Peter", balance: 50000, bank: "GTBank", acctNum:"1111111111"},
+    {pin: 1234, name: "Babaranti Yusuf", balance: 15000, bank: "opay", acctNum: "8123223280"},
+    {pin: 2345, name: "Clinton Clinton", balance: 30000, bank: "UBA", acctNum: "2222222222"},
+    {pin: 2333, name: "Owoade Adams", balance: 45000, bank: "First Bank", acctNum: "3333333333"}
 ]
+ 
+let users = JSON.parse(localStorage.getItem ("users")) || bankusers
+
+localStorage.setItem("users", JSON.stringify(users))
+
+function saveUser(updated){
+    const i = users.findIndex((u) => u.acctNum === updated.acctNum)
+    if (i !== -1) users[i] = updated
+    localStorage.setItem('users', JSON.stringify(users))
+    // localStorage.setItem('selectedUser', JSON.stringify(updated))
+}
 
 if (usersContain) {
     users.forEach((user) => {
@@ -46,7 +60,9 @@ if (usersContain) {
         })
 
         usersContain.append(userBtn)
+        localStorage.setItem("users", JSON.stringify(users))
     })
+    localStorage.setItem("users", JSON.stringify(users)) 
 }
 
 
@@ -150,21 +166,16 @@ if(withdrawBtn && WithdrawAmt) {
 
             selectedUser.balance = newBalance
 
-            localStorage.setItem("selectedUser", JSON.stringify(selectedUser))
+            saveUser(selectedUser)
         }
 
     })
 
 }
 
-const beneficiaries = [
-    {name: "Adekunle Qoyum Kazeem", bank: "UBA", acctNum: "1234567890"},
-    {name: "Testimony Adekunle Michael", bank: "Palmpay", acctNum: "2345678901"},
-    {name: "Ololade David Johnson", bank: "Sterling", acctNum: "3456789012"}
-]
 
-if (BankSlt && confirmName && confirmInfo && insertAcctNum) {
-    beneficiaries.forEach((recieve) => {
+if (BankSlt && confirmName && confirmInfo && insertAcctNum && SendMoney && transferAmt) {
+    users.forEach((recieve) => {
         const option = document.createElement("option")
 
         option.value = recieve.bank
@@ -174,7 +185,7 @@ if (BankSlt && confirmName && confirmInfo && insertAcctNum) {
     })
 
     confirmInfo.addEventListener("click", () => {
-        const receiver = beneficiaries.find((person) => {
+        const receiver =users.find((person) => {
             return person.bank === BankSlt.value
         })
 
@@ -182,30 +193,62 @@ if (BankSlt && confirmName && confirmInfo && insertAcctNum) {
             confirmName.innerText = receiver.name
         } else {confirmName.innerText = "Information Mismatch"}
     } )
-}
-
-if (SendMoney && transferAmt){
 
     const selectedUser = JSON.parse(
         localStorage.getItem("selectedUser")
     )
 
+
     SendMoney.addEventListener("click", () => {
-        if (transferAmt.value > selectedUser.balance) {
-            alert("Insufficient Balance")
-        } else if (transferAmt.value === "" || transferAmt.value <= 0) {
-            alert("invalid amount")
-        } else {
-            alert("Transfer successful")
-            const newBalance = selectedUser.balance - transferAmt.value
-            selectedUser.balance = newBalance
-            localStorage.setItem("selectedUser", JSON.stringify(selectedUser))
-        }
 
-        
+    const amount = Number(transferAmt.value)
 
+    const selectedUser = JSON.parse(
+        localStorage.getItem("selectedUser")
+    )
+
+    const receiver = users.find((person) => {
+        return person.bank === BankSlt.value &&
+               person.acctNum === insertAcctNum.value
     })
+
+    if (!transferAmt.value || amount <= 0) {
+        alert("Invalid amount")
+        return
+    }
+
+    if (!receiver) {
+        alert("Confirm the receiver's account details")
+        return
+    }
+
+    if (receiver.acctNum === selectedUser.acctNum) {
+        alert("You cannot transfer money to yourself")
+        return
+    }
+
+    if (amount > selectedUser.balance) {
+        alert("Insufficient balance")
+        return
+    }
+
+    selectedUser.balance -= amount
+
+    receiver.balance += amount
+
+    saveUser(selectedUser)
+    saveUser(receiver)
+
+    localStorage.setItem(
+        "selectedUser",
+        JSON.stringify(selectedUser)
+    )
+
+    alert("Transfer successful!")
+})
+
 }
+
 if (tranferPgBtn) {
     tranferPgBtn.addEventListener ("click", () => {
         window.location.href = "transfer.html"
@@ -217,7 +260,7 @@ const MeterUsers = [
     {num: "23456789012", provider: "PHCN", name: "Adekunle Wasiu Joel"}
 ]
 
-if (ProviderSlt && confirmMeter) {
+if (ProviderSlt && confirmMeter && insertMeterNum && buyElectricity && confirmMeterUser) {
 
     MeterUsers.forEach((users) => {
 
@@ -230,6 +273,26 @@ if (ProviderSlt && confirmMeter) {
     })
 
     confirmMeter.addEventListener("click", () => {
+        const purchase = MeterUsers.find((meter) => {
+            return meter.provider === ProviderSlt.value &&
+                    meter.num === insertMeterNum.value
+        })
+        if(!purchase){
+            alert("Confirm details")
+        }
+        if(purchase && purchase.num === insertMeterNum.value){
+            confirmMeterUser.innerText = purchase.name;
+
+            buyElectricity.addEventListener("click", () => {
+                if (ElectricAmt.value > selectedUser.balance){
+                    alert("insufficient funds")
+                }
+                    
+            })
+            
+        } else {
+            return
+        }
         
     })
 }
