@@ -23,8 +23,9 @@ const confirmMeterUser = document.getElementById("confirmMeterUser")
 const exit = document.getElementById("exit")
 const ElectricBtn = document.getElementById("ElectricBtn")
 const insertMeterNum = document.getElementById("insertMeterNum")
-const buyElectricity = document.getElementById("buyEletricity")
+const buyElectricity = document.getElementById("buyElectricity")
 const ElectricAmt = document.getElementById("ElectricAmt")
+const token = document.getElementById("token")
 
 const bankusers =  [
     {pin: 2000, name: "Aderanti Peter", balance: 50000, bank: "GTBank", acctNum:"1111111111"},
@@ -41,7 +42,7 @@ function saveUser(updated){
     const i = users.findIndex((u) => u.acctNum === updated.acctNum)
     if (i !== -1) users[i] = updated
     localStorage.setItem('users', JSON.stringify(users))
-    // localStorage.setItem('selectedUser', JSON.stringify(updated))
+
 }
 
 if (usersContain) {
@@ -260,8 +261,12 @@ const MeterUsers = [
     {num: "23456789012", provider: "PHCN", name: "Adekunle Wasiu Joel"}
 ]
 
-if (ProviderSlt && confirmMeter && insertMeterNum && buyElectricity && confirmMeterUser) {
+if (ProviderSlt && confirmMeter && insertMeterNum && buyElectricity && confirmMeterUser && MeterUsers && ElectricAmt) {
 
+    const selectedUser = JSON.parse(
+        localStorage.getItem("selectedUser")
+    )
+    
     MeterUsers.forEach((users) => {
 
         const option = document.createElement("option")
@@ -282,17 +287,26 @@ if (ProviderSlt && confirmMeter && insertMeterNum && buyElectricity && confirmMe
         }
         if(purchase && purchase.num === insertMeterNum.value){
             confirmMeterUser.innerText = purchase.name;
-
-            buyElectricity.addEventListener("click", () => {
-                if (ElectricAmt.value > selectedUser.balance){
-                    alert("insufficient funds")
-                }
-                    
-            })
-            
         } else {
-            return
+            confirmMeterUser.innerText = "Mismatched Information"
         }
+        buyElectricity.addEventListener("click", () => {
+            if (ElectricAmt.value > selectedUser.balance){
+                alert("insufficient funds")
+            } else {
+                const newBalance = selectedUser.balance - ElectricAmt.value
+
+                selectedUser.balance = newBalance
+
+                localStorage.setItem(
+                    "selectedUser",
+                    JSON.stringify(selectedUser)
+                )
+                alert("Purchase Successful")
+
+                token.innerText = "4567-8657-9432-8207-2104"
+            }
+        })
         
     })
 }
