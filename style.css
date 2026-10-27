@@ -16,7 +16,11 @@ body {
     gap: 14px;
     padding: 56px, 20px, 40px;
     font-family: Arial, Helvetica, sans-serif;
-    color: black;
+    color: orange;
+    background-color: rgb(1, 1, 54);
+    justify-content: center;
+    align-items: center;
+
 }
 .landingpage {
     justify-content: center;
@@ -38,8 +42,9 @@ body {
     padding: 30px 50px;
     background-color: white;
     border-width: 1px;
-    border-color: grey;
+    border-color: blue;
     border-style: solid;
+    background-color: rgb(2, 2, 94);
 }
 
 #usersContain button:hover {
@@ -51,6 +56,7 @@ body {
     margin:50px;
     font-family: "calibri";
     font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .atmCard_container {
     text-align: center;
@@ -65,9 +71,8 @@ body {
 }
 .PinHeading {
     text-align: center;
-    font-family: "calibri";
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 400%;
-    margin: 150px;
     font-weight: bold;
 }
 .PinContainer{
@@ -80,17 +85,22 @@ body {
     align-items: center;
 }
 .PinContainer input {
-    font-size: 300%;
-    padding: 30px;
+    font-size: 100%;
+    padding: 20px 40px;
     text-align: center;
+    border-radius: 50px;
+    border-style: solid;
+    border-color: orange;
+
 }
 #LoginBtn {
     padding: 10px 30px;
     font-size: 130%;
-    background-color: green;
-    color: white;
+    background-color: orange;
+    color: black;
     border: none;
     border-radius: 50px;
+    font-weight: bold;
 }
 .featureCont {
     display: flex;
@@ -99,6 +109,7 @@ body {
 .features {
     display: flex;
     flex-direction: row;
+    gap: 20px;
 }
 .features div {
     display: flex;
@@ -110,11 +121,14 @@ body {
     gap: 20px;
 }
 .features div button {
-    width: 200px;
-    height: 100px;
+    width: 180px;
+    height: 80px;
+    border-radius: 15px;
+    border: none;
+    font-weight: bold;
 }
 #WelcomeName {
-    font-family: 'calibri';
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 20px;
 }
 .ExitCont {
@@ -127,8 +141,13 @@ body {
     padding: 20px;
 }
 .ExitCont button {
-    width: 200px;
-    height: 100px;
+    width: 180px;
+    height: 80px;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    background-color: red;
+    color: white;
 }
 .BalPage{
     text-align: center;
@@ -144,6 +163,9 @@ body {
     font-size: 400%;
 }
 #backBtn {
-    width: 200px;
-    height: 100px;
+    width: 180px;
+    height: 80px;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
 }

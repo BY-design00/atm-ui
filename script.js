@@ -53,6 +53,8 @@ if (usersContain) {
         userBtn.style.padding = "10px 50px"
         userBtn.style.border = "none"
         userBtn.style.borderRadius = "30px"
+        userBtn.style.backgroundColor = "orange"
+        userBtn.style.fontWeight ="bold"
 
         userBtn.addEventListener("click", () => {
             localStorage.setItem("selectedUser", JSON.stringify(user))
