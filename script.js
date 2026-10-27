@@ -168,6 +168,7 @@ if(withdrawBtn && WithdrawAmt) {
             selectedUser.balance = newBalance
 
             saveUser(selectedUser)
+            localStorage.setItem("selectedUser", JSON.stringify(selectedUser))
         }
 
     })
